@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script lang="JavaScript">
+    // let regExp = new RegExp('ada');
+    let regExp = /aAda/gim; //g 全文匹配  i 忽略大小写 m 多行查找
+    var str = 'aAdaaaa';
+    console.log(regExp.test(str));
+    str.replace(regExp,'A');
+    console.log(str);
+</script>
+</html>

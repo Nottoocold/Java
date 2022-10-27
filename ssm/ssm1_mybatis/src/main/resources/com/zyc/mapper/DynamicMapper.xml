@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyc.mapper.DynamicMapper">
+    <sql id="userCol">uid,name,age,sex,email,password</sql>
+
+
+    <insert id="insertMoreByList">
+        insert into t_user values
+        <foreach collection="users" item="user" separator=",">
+            (null,#{user.name},#{user.age},#{user.sex},#{user.email},#{user.password})
+        </foreach>
+    </insert>
+
+    <delete id="deleteMoreByArr">
+        delete from t_user where uid in
+        <foreach collection="ids" open="(" separator="," close=")" item="id" index="i">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteMoreByOr">
+        delete from t_user where
+        <foreach collection="ids" item="id" separator="or">
+            uid = #{id}
+        </foreach>
+    </delete>
+
+    <select id="selectA" resultType="user">
+        select
+        <include refid="userCol"/>
+        from t_user limit 0,9
+    </select>
+
+</mapper>

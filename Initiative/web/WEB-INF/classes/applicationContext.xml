@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<beans-mapper>
+    <!--通过截取URL中的字符串得到id 映射到class-->
+    <bean id="fruit" class="com.zyc.servlet.controller.FruitController">
+        <property name="FRUIT_SERVICE" ref="fruitservice"/>
+    </bean>
+
+    <bean id="fruitservice" class="com.zyc.service.iml.FruitServiceImpl">
+        <property name="FRUIT_DAO" ref="fruitdao"/>
+    </bean>
+
+    <bean id="fruitdao" class="com.zyc.dao.iml.FruitDaoImpl"/>
+</beans-mapper>

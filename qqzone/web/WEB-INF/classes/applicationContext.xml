@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!DOCTYPE beans-mapper [
+        <!ELEMENT beans-mapper (bean*)>
+        <!ELEMENT bean (property*)>
+        <!ELEMENT property (#PCDATA)>
+
+        <!ATTLIST bean id ID #REQUIRED>
+        <!ATTLIST bean class CDATA #IMPLIED>
+        <!ATTLIST property name CDATA #IMPLIED>
+        <!ATTLIST property ref IDREF #IMPLIED>
+
+        ]>
+
+<beans-mapper>
+    <!--通过截取URL中的字符串得到id 映射到class-->
+
+    <bean id="UserBasicDao" class="com.zyc.qqzone.dao.impl.UserBasicDaoImpl"/>
+    <bean id="TopicDao" class="com.zyc.qqzone.dao.impl.TopicDaoImpl"/>
+    <bean id="ReplyDao" class="com.zyc.qqzone.dao.impl.ReplyDaoImpl"/>
+    <bean id="HostReplyDao" class="com.zyc.qqzone.dao.impl.HostReplyDaoImpl"/>
+
+    <bean id="UserBasicService" class="com.zyc.qqzone.service.impl.UserBasicServiceImpl">
+        <property name="userBasicDao" ref="UserBasicDao"/>
+    </bean>
+
+    <bean id="TopicService" class="com.zyc.qqzone.service.impl.TopicServiceImpl">
+        <property name="topicDao" ref="TopicDao"/>
+        <property name="userBasicService" ref="UserBasicService"/>
+        <property name="replyService" ref="ReplyService"/>
+    </bean>
+
+    <bean id="ReplyService" class="com.zyc.qqzone.service.impl.ReplyServiceImpl">
+        <property name="replyDao" ref="ReplyDao"/>
+        <property name="hostReplyService" ref="HostReplyService"/>
+        <property name="userBasicService" ref="UserBasicService"/>
+    </bean>
+
+    <bean id="HostReplyService" class="com.zyc.qqzone.service.impl.HostReplyServiceImpl">
+        <property name="hostReplyDao" ref="HostReplyDao"/>
+    </bean>
+
+    <bean id="user" class="com.zyc.qqzone.controller.UserController">
+        <property name="userBasicService" ref="UserBasicService"/>
+        <property name="topicService" ref="TopicService"/>
+    </bean>
+
+    <bean id="topic" class="com.zyc.qqzone.controller.TopicController">
+        <property name="topicService" ref="TopicService"/>
+    </bean>
+
+    <bean id="reply" class="com.zyc.qqzone.controller.ReplyController">
+        <property name="replyService" ref="ReplyService"/>
+    </bean>
+
+    <bean id="page" class="com.zyc.qqzone.controller.PageController"/>
+</beans-mapper>

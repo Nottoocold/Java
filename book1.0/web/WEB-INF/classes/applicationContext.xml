@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!DOCTYPE beans-mapper [
+        <!ELEMENT beans-mapper (bean*)>
+        <!ELEMENT bean (property*)>
+        <!ELEMENT property (#PCDATA)>
+
+        <!ATTLIST bean id ID #REQUIRED>
+        <!ATTLIST bean class CDATA #IMPLIED>
+        <!ATTLIST property name CDATA #IMPLIED>
+        <!ATTLIST property ref IDREF #IMPLIED>
+
+        ]>
+
+<beans-mapper>
+    <!--通过截取URL中的字符串得到id 映射到class-->
+    <bean id="UserDao" class="com.zyc.book.dao.impl.UserDaoImpl"/>
+    <bean id="BookDao" class="com.zyc.book.dao.impl.BookDaoImpl"/>
+    <bean id="CartDao" class="com.zyc.book.dao.impl.CartDaoImpl"/>
+
+    <bean id="UserService" class="com.zyc.book.service.impl.UserServiceImpl">
+        <property name="userDao" ref="UserDao"/>
+    </bean>
+
+    <bean id="BookService" class="com.zyc.book.service.impl.BookServiceImpl">
+        <property name="bookDao" ref="BookDao"/>
+    </bean>
+
+    <bean id="CartService" class="com.zyc.book.service.impl.CartServiceImpl">
+        <property name="cartDao" ref="CartDao"/>
+    </bean>
+
+
+
+    <bean id="user" class="com.zyc.book.controller.UserController">
+        <property name="userService" ref="UserService"/>
+        <property name="cartService" ref="CartService"/>
+    </bean>
+
+    <bean id="book" class="com.zyc.book.controller.BookController">
+        <property name="bookService" ref="BookService"/>
+    </bean>
+
+    <bean id="cart" class="com.zyc.book.controller.CartController">
+        <property name="cartService" ref="CartService"/>
+    </bean>
+
+    <bean id="page" class="com.zyc.ssm.spingmvc.PageController"/>
+</beans-mapper>
