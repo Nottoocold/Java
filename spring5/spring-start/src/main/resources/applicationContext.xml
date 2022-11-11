@@ -10,8 +10,10 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <context:component-scan base-package="org.springframework.stu"/>
+    <bean class="org.spring.stu.dao.impl.UserDaoImpl" name="userDao"/>
 
-    <aop:aspectj-autoproxy/>
+    <bean class="org.spring.stu.service.impl.UserServiceImpl" name="userService">
+        <property name="userDao" ref="userDao"/>
+    </bean>
 
 </beans>
