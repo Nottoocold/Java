@@ -19,19 +19,12 @@ public class IteratorTest {
 		collection.add("chao");
 		collection.add(1999);
 		collection.add(99);
-		
-		Iterator iterator = collection.iterator();
-		while (iterator.hasNext()) {
-			Object object = iterator.next();
-			if (new Integer(99).equals(object)) {
-				iterator.remove();
-			}
-		}
-		
-		Iterator iterator1 = collection.iterator();
-		while (iterator1.hasNext()) {
-			System.out.println(iterator1.next());
-			
+
+		collection.removeIf(object -> Integer.valueOf(99).equals(object));
+
+		for (Object o : collection) {
+			System.out.println(o);
+
 		}
 		//remove()方法，在遍历的过程中删除某元素
 	}
